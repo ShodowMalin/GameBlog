@@ -14,13 +14,20 @@ body {
     padding: 20px 0;
 }
 
-/* Header */
+/* --- Header e Navigazione --- */
 header {
     background-color: #0f3460;
     color: #e94560;
     text-align: center;
-    padding: 40px 0;
+    padding: 40px 0 20px 0; /* Ridotto il padding inferiore */
     border-bottom: 5px solid #e94560;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
@@ -33,9 +40,80 @@ header h1 {
 header p {
     font-size: 1.2rem;
     margin-top: 10px;
+    margin-bottom: 25px; /* Spazio sotto il sottotitolo */
 }
 
-/* Post del Blog */
+.main-nav {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px; /* Spazio tra i bottoni */
+    flex-wrap: wrap; /* Per la responsività su schermi piccoli */
+    justify-content: center;
+}
+
+.nav-button {
+    display: inline-block;
+    background-color: #e94560; /* Colore pulsante */
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none; /* Rimuove il bordo predefinito del bottone */
+    cursor: pointer; /* Indica che è cliccabile */
+    font-family: 'Roboto', sans-serif; /* Assicura lo stesso font */
+}
+
+.nav-button:hover {
+    background-color: #c9354f;
+    transform: translateY(-3px); /* Effetto leggero al passaggio del mouse */
+}
+
+.app-button {
+    background-color: #3f72af; /* Un colore diverso per il bottone dell'app */
+}
+
+.app-button:hover {
+    background-color: #2a5a92;
+}
+
+/* --- Banner Scorrevole --- */
+/* Animazione di scorrimento orizzontale */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Stili per il banner scorrevole */
+.scrolling-banner {
+    background-color: #e94560; /* Colore del banner */
+    color: #fff;
+    padding: 10px 0;
+    overflow: hidden; /* Nasconde il testo che esce dal contenitore */
+    white-space: nowrap; /* Impedisce al testo di andare a capo */
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-bottom: 3px solid #0f3460;
+}
+
+.banner-content {
+    display: inline-block;
+    animation: scroll-left 30s linear infinite; /* Animazione: nome, durata, velocità, ripetizione */
+    width: 200%; /* Raddoppia la larghezza per lo scorrimento continuo */
+}
+
+/* Pausa l'animazione al passaggio del mouse */
+.scrolling-banner:hover .banner-content {
+    animation-play-state: paused;
+}
+
+/* --- Post del Blog (Pagina Principale) --- */
 #blog-posts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -107,16 +185,7 @@ header p {
     background-color: #c9354f;
 }
 
-/* Footer */
-footer {
-    background-color: #0f3460;
-    text-align: center;
-    padding: 20px 0;
-    border-top: 5px solid #e94560;
-    color: #e0e0e0;
-}
-
-/* Stili per la pagina dell'articolo */
+/* --- Stili per le Pagine degli Articoli Completi --- */
 .article-page {
     padding: 60px 20px;
 }
@@ -165,43 +234,66 @@ footer {
     text-decoration: underline;
 }
 
-/* Animazione di scorrimento orizzontale */
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
+/* --- Footer --- */
+footer {
+    background-color: #0f3460;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 5px solid #e94560;
+    color: #e0e0e0;
+}
+
+/* --- Media Queries per la Responsività (Adattamento ai diversi schermi) --- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
     }
-    100% {
-        /* Muovi a sinistra del 50% della sua larghezza.
-           Questo fa sì che il contenuto duplicato scorra in modo continuo. */
-        transform: translateX(-50%);
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .main-nav {
+        flex-direction: column; /* I bottoni della navbar vanno in colonna su schermi piccoli */
+        align-items: center;
+    }
+
+    .nav-button {
+        width: 80%; /* I bottoni occupano più larghezza */
+        max-width: 250px;
+    }
+
+    .scrolling-banner {
+        font-size: 0.9rem;
+    }
+
+    #blog-posts {
+        grid-template-columns: 1fr; /* Un'unica colonna per i post su schermi piccoli */
+    }
+
+    .post-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .full-post {
+        padding: 20px;
+    }
+
+    .full-post-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .full-post-content p {
+        font-size: 1rem;
     }
 }
 
-/* Stili per il banner scorrevole */
-.scrolling-banner {
-    background-color: #e94560;
-    color: #fff;
-    padding: 10px 0;
-    overflow: hidden; /* Nasconde il contenuto che esce dalla vista */
-    white-space: nowrap; /* Impedisce al testo di andare a capo */
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-bottom: 3px solid #0f3460;
-}
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
 
-.banner-content {
-    /* Il display inline-block è fondamentale per l'animazione */
-    display: inline-block;
-    /* Applica l'animazione */
-    animation: scroll-left 30s linear infinite;
-    /*
-        Aumentiamo la larghezza per garantire che ci sia abbastanza
-        contenuto da far scorrere.
-    */
-    width: 200%;
-}
-
-/* Pausa l'animazione al passaggio del mouse */
-.scrolling-banner:hover .banner-content {
-    animation-play-state: paused;
+    header p {
+        font-size: 0.9rem;
+    }
 }
